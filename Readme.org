@@ -1,4 +1,15 @@
 * Yet another ~emacs~ configuration file!
-* Use-package
-* Org Babel
-* Credits
+  I share here my ~emacs~ configuration so you can reuse or just borrow
+  from it.
+** How to use?
+   If you are new with emacs
+   - Just clone ~init.el~ and ~myinit.org~ files in your ~.emacs.d/~ directory!
+   - Wait until all packages are downloaded
+   - Enjoy using it!
+** How it works
+   - Most of packages are installed using ~use-package~, initialized in ~init.el~
+   - All the configuration is in ~myinit.org~ file with some explanation.
+   - ~personal.org~ contains some personal configurations
+** Credits
+   - You can find in [[https://cestlaz.github.io/stories/emacs/][Mike Zamansky]]'s blog a bunch of video screencasts using ~emacs~.
+   - Most of configurations come from 

@@ -235,6 +235,7 @@
 ** Agenda
 * Versionning
 ** Magit
+   The best git _software_ ever
    #+BEGIN_SRC emacs-lisp
      (use-package  magit
        :ensure t)
@@ -245,4 +246,5 @@
    #+BEGIN_SRC emacs-lisp
      (setq ring-bell-function 'ignore)
    #+END_SRC
+
 
