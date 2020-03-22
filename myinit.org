@@ -1,6 +1,6 @@
 #+TITLE: My emacs init file!
 #+AUTHOR: BELAID Mohammed Said
-#+EMAIL: ms.belaid@gmail.com
+#+EMAIL: said.belaid@univ-usto.dz
 
 * Try
   Helps trying new packages w/o installing them!
