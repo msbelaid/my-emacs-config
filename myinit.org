@@ -36,7 +36,7 @@
      (set-face-foreground 'highlight nil)
    #+END_SRC
 ** Beacon
-   Flashes the cursor line when scrolling
+   Flashes the cursor line when moving the point (from a window to another, or when scrolling)
    #+BEGIN_SRC emacs-lisp
      (use-package beacon
        :ensure t
