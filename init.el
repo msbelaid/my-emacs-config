@@ -13,10 +13,15 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(load "gnu-elpa-keyring-update")
+;; Uncomment only if you have a problem with gnu elpa key!
+;; (load "gnu-elpa-keyring-update")
 
-;; All my initialisation config is in a seperate org file
+;; All my emacs initialisation config is in a seperate org file
 (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
+
+;; All my personal config is in a seperate org file
+(org-babel-load-file (expand-file-name "~/.emacs.d/personal.org"))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -24,7 +29,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (smartparens smartparens-config flycheck auto-complete counsel which-key use-package try))))
+    (all-the-icons smartparens smartparens-config flycheck auto-complete counsel which-key use-package try))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

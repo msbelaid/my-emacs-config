@@ -19,8 +19,8 @@
    #+END_SRC
 ** Add some awesome transparency ;)
    #+BEGIN_SRC emacs-lisp
-     (set-frame-parameter (selected-frame) 'alpha '(95 . 95))
-     (add-to-list 'default-frame-alist '(alpha . (95 . 95)))
+     (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+     (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
    #+END_SRC
 ** No action bars
    #+BEGIN_SRC emacs-lisp
@@ -61,7 +61,45 @@
      (use-package olivetti
        :ensure t)
    #+END_SRC
+** Pretty icons
+   Install the icons font
+   #+begin_src emacs-lisp
+     (use-package all-the-icons
+       :ensure t
+       :defer 0.5
+       :config
+       (when (not (member "all-the-icons" (font-family-list)))
+	 (all-the-icons-install-fonts t)))
+
+     (use-package all-the-icons-ivy
+       :ensure t
+       :defer 0.5
+       :after (all-the-icons ivy)
+       :custom (all-the-icons-ivy-buffer-commands '(ivy-switch-buffer-other-window ivy-switch-buffer))
+       :config (all-the-icons-ivy-setup))
+   #+end_src
 ** TODO Highlight indentation
+* Key-Bindings
+** ~C-c i~ to open this config file 
+  #+begin_src emacs-lisp
+    (global-set-key (kbd "C-c i") 'my-init-file)
+    (defun my-init-file ()
+      "Open my configuration file"
+      (interactive)
+      (find-file "~/.emacs.d/myinit.org"))
+  #+end_src
+** ~C-c o~ to open my todo file 
+  #+begin_src emacs-lisp
+    (global-set-key (kbd "C-c o") 'my-todo-file)
+    (defun my-todo-file ()
+      "Open my todo file"
+      (interactive)
+      (progn
+	(find-file "~/todo.org")
+	(olivetti-mode)
+	)
+      )
+  #+end_src
 * Helpers
 ** Which key
    #+BEGIN_SRC emacs-lisp
@@ -177,23 +215,64 @@
        :config 
        (global-set-key (kbd "C-=") 'er/expand-region))
    #+END_SRC
+* Coding
+** General
+   Use ~M-.~ to find the definition of the methof at the point.
+   #+BEGIN_src emacs-lisp
+     (use-package ggtags :ensure t)
+     (add-hook 'c-mode-common-hook
+	       (lambda ()
+		 (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+		   (ggtags-mode 1))))
+   #+END_src
+** C++
+   #+begin_src emacs-lisp
+
+   #+end_src
+** Java
+** Python
 * Org-mode
-** Bullets
+** Awesome Bullets
    #+BEGIN_SRC emacs-lisp
      (use-package org-bullets
        :ensure t)
      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
    #+END_SRC
 ** Awesome code in org-mode
-   Display code in org-mode with highlighting.
+   Display code in org-mode with syntax highlighting.
    #+BEGIN_SRC emacs-lisp
      (setq org-src-fontify-natively t)
    #+END_SRC
 ** Exportation
+*** Latex
+    #+begin_src emacs-lisp
+      (require 'ox-latex)
+    #+end_src
+**** Inline latex preview bigger
+     #+BEGIN_src emacs-lisp
+       (custom-set-variables
+	'(org-format-latex-options
+	  (quote
+	   (:foreground default
+			:background default
+			:scale 4.0
+			:html-foreground "Black"
+			:html-background "Transparent"
+			:html-scale 1.0
+			:matchers ("begin" "$1" "$" "$$" "\\(" "\\["))))
+       )
+     #+END_src
+**** Listings for beautiful code
+     #+BEGIN_src emacs-lisp
+       (setq org-latex-listings t)
+       (add-to-list 'org-latex-packages-alist '("" "listings"))
+       (add-to-list 'org-latex-packages-alist '("" "color"))
+
+     #+END_src
 *** Reveal
     #+BEGIN_SRC emacs-lisp
       (use-package org-re-reveal
-        :ensure t)
+         :ensure t)
     #+END_SRC
 **** TODO Install reveal.js
 *** Bootstrap
@@ -215,7 +294,7 @@
         (shell . t)
         (C . t)))
    #+END_SRC
-*** TODO Plantuml config / Install JDK
+*** TODO Plantuml config
     #+BEGIN_SRC emacs-lisp
       (setq org-plantuml-jar-path (expand-file-name "~/.emacs.d/plantuml.jar"))
       ;; Do not promt for plantuml or ditaa
@@ -231,8 +310,26 @@
       (add-to-list 'ispell-skip-region-alist '("=" "="))
       (add-to-list 'ispell-skip-region-alist '("^#\\+BEGIN_SRC" . "^#\\+END_SRC"))
     #+END_SRC
-*** 
+**** 
 ** Agenda
+   #+BEGIN_src emacs-lisp
+     (setq org-agenda-files (list "~/todo.org"))
+   #+END_src
+** Capture
+** Block tempaltes ~<s~
+   In recent org mode version ( > 9.2) expanding ~<s~ to a source
+   block by hitting ~TAB~ is no more supported.
+   Consider using ~org-tempo~ to continue using this option.
+
+   I added another shortcut ~<S~ to create an ~emacs-lisp~ source block.
+    #+BEGIN_SRC emacs-lisp
+      (if (version<= "9.2" org-version)
+	  (require 'org-tempo))
+      (add-to-list 'org-structure-template-alist
+		   (if (version< org-version "9.2")
+		       (list "S" "#+BEGIN_SRC emacs-lisp\n\?\n#+END_NOTES")
+		       (cons "S" "src emacs-lisp")))
+    #+END_SRC
 * Versionning
 ** Magit
    The best git _software_ ever
@@ -248,3 +345,4 @@
    #+END_SRC
 
 
+       (all-the-icons-ivy-setup)
